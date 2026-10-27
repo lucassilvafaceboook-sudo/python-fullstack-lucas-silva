@@ -1,0 +1,16 @@
+[
+    {
+        "aluno": "Lucas da Silva",
+        "nota1": 8.0,
+        "nota2": 9.0,
+        "nota3": 10.0,
+        "media": 9.0
+    },
+    {
+        "aluno": "silva lucas",
+        "nota1": 7.0,
+        "nota2": 9.0,
+        "nota3": 8.0,
+        "media": 8.0
+    }
+]
