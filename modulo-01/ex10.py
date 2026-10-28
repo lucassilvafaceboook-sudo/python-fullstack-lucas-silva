@@ -10,4 +10,4 @@ peso_restante = capacidade_caminhao % peso_caixa
 
 # 3. Exibe os resultados com mensagens claras
 print(f"O camião comporta {caixas_completas} caixas completas.")
-print(f"O peso restante que não completa uma caixa é de {peso_restante} kg.")git remote -v
+print(f"O peso restante que não completa uma caixa é de {peso_restante} kg.")
