@@ -1,0 +1,59 @@
+# salao/modelos/equipamento.py
+# =============================================================================
+# ITEAM | Projeto: Salão de Beleza & Barbearia
+# Módulo : salao.modelos.equipamento
+# Assunto: Métodos Especiais (__str__, __repr__, __eq__)    (Seção 5.4)
+# =============================================================================
+#
+# ----------------------------------------------------------------------------
+#  BUG 5 — __str__ referenciando atributo que não existe
+#  ONDE  : método  __str__  da classe  Equipamento
+#  ERRO  : o método tenta acessar  self.descricao, mas o atributo foi
+#          declarado como  self.__descricao  (privado). Fora da classe,
+#          isso causaria AttributeError; dentro da classe também está
+#          escrito errado — falta o prefixo __ correto.
+#  DICA  : troque  self.descricao  por  self.__descricao  no __str__
+# ----------------------------------------------------------------------------
+#
+# ----------------------------------------------------------------------------
+#  BUG 6 — __eq__ comparando pelo nome em vez do código
+#  ONDE  : método  __eq__
+#  ERRO  : dois equipamentos são considerados iguais se tiverem o mesmo NOME,
+#          mas o correto é comparar pelo CÓDIGO (self.__codigo), que é único.
+#  DICA  : troque  self.nome == outro.nome  por  self.__codigo == outro.__codigo
+#          Lembre-se: acesso ao atributo privado de OUTRO objeto usa name-mangling:
+#          outro._Equipamento__codigo
+# ----------------------------------------------------------------------------
+
+class Equipamento:
+    """
+    Representa um equipamento do salão (secador, cadeira, autoclave...).
+    Demonstra métodos especiais dunder.
+    """
+
+    def __init__(self, codigo: str, nome: str, descricao: str, valor: float):
+        self.__codigo   = codigo.strip().upper()
+        self.nome       = nome.strip().title()
+        self.__descricao = descricao.strip()
+        self.valor      = valor
+
+    @property
+    def codigo(self):
+        return self.__codigo
+
+    def __str__(self):
+        # CORREÇÃO BUG 5: Acesso ao atributo privado __descricao de forma correta.
+        return (
+            f"[{self.__codigo}] {self.nome} "
+            f"| {self.__descricao} "        
+            f"| R$ {self.valor:.2f}"
+        )
+
+    def __repr__(self):
+        return f"Equipamento(codigo='{self.__codigo}', nome='{self.nome}')"
+
+    def __eq__(self, outro):
+        if not isinstance(outro, Equipamento):
+            return False
+        # CORREÇÃO BUG 6: Comparação feita pelo código único (__codigo) usando name-mangling.
+        return self.__codigo == outro._Equipamento__codigo
